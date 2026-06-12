@@ -1,0 +1,20 @@
+{
+  "settings": "Settings",
+  
+  "wireless": "Wireless",
+  "manageWireless": "Manage wireless",
+  "onToggle" : "ON",
+  "offToggle" : "OFF",
+  "myNetworks" : "My networks",
+  "avaialableNetworks" : "Available networks",
+
+  "cellularData" : "Cellular data (LTE)",
+  "bluetooth" : "Bluetooth",
+  "display" : "Display",
+  "sound" : "Sound",
+  "system" : "System",
+  "timeAndDate" : "Time & Date",
+  "language" : "Language",
+  "battery" : "Battery",
+  "about" : "About"
+}
