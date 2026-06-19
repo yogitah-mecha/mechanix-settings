@@ -7,6 +7,7 @@ import 'package:mechanix_settings/core/widgets/custom_divider.dart';
 import 'package:mechanix_settings/core/widgets/section_list/section_item.dart';
 import 'package:mechanix_settings/core/widgets/section_list/section_list.dart';
 import 'package:mechanix_settings/features/settings_menu/presentation/widgets/settings_menu_bottombar.dart';
+import 'package:mechanix_settings/features/wireless/presentation/screens/wireless.dart';
 import 'package:mechanix_settings/l10n/app_localizations.dart';
 
 class SettingsMenuScreen extends StatefulWidget {
@@ -54,7 +55,13 @@ class SettingsMenuScreenState extends State<SettingsMenuScreen> {
                       SettingIcons.wireless,
                       color: AppColors.onSurfaceVariant,
                     ),
-                    onTap: () {},
+                    onTap: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => const WirelessScreen(),
+                        ),
+                      );
+                    },
                   ),
 
                   SectionItem(

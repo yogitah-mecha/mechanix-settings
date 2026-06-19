@@ -1,0 +1,219 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mechanix_settings/core/constants/icons.dart';
+import 'package:mechanix_settings/core/theme/app_theme.dart';
+import 'package:mechanix_settings/core/utils/enums.dart';
+import 'package:mechanix_settings/core/widgets/custom_divider.dart';
+import 'package:mechanix_settings/core/widgets/custom_icon_button.dart';
+import 'package:mechanix_settings/core/widgets/custom_image_asset.dart';
+import 'package:mechanix_settings/features/wireless/blocs/wireless_bloc.dart';
+import 'package:mechanix_settings/features/wireless/presentation/widgets/security_selection.dart';
+import 'package:mechanix_settings/l10n/app_localizations.dart';
+
+class AddNetworkBottomSheet extends StatefulWidget {
+  const AddNetworkBottomSheet({super.key});
+
+  @override
+  State<AddNetworkBottomSheet> createState() => _AddNetworkBottomSheetState();
+}
+
+class _AddNetworkBottomSheetState extends State<AddNetworkBottomSheet> {
+  final _nameController = TextEditingController();
+  final _passwordController = TextEditingController();
+  final _passwordFocusNode = FocusNode();
+
+  bool _obscurePassword = true;
+  WirelessSecurity _security = WirelessSecurity.wpa2Wpa3;
+
+  @override
+  void dispose() {
+    _nameController.dispose();
+    _passwordController.dispose();
+    _passwordFocusNode.dispose();
+    super.dispose();
+  }
+
+  void _onAdd() {
+    final name = _nameController.text.trim();
+    final password = _passwordController.text.trim();
+
+    if (name.isEmpty || password.isEmpty) {
+      return;
+    }
+
+    context.read<WirelessBloc>().add(AddNetworkEvent(name, password));
+
+    Navigator.pop(context);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+
+    return Container(
+      padding: EdgeInsets.only(
+        left: 16,
+        right: 16,
+        top: 16,
+        bottom: MediaQuery.of(context).viewInsets.bottom + 16,
+      ),
+      decoration: const BoxDecoration(color: AppColors.backgroundVariantDark),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          /// Header
+          Row(
+            children: [
+              Expanded(
+                child: Text(
+                  l10n.addWireless,
+                  style: Theme.of(context).textTheme.bodyLarge,
+                ),
+              ),
+              CustomIconButton(
+                icon: const Icon(Icons.close),
+                onPressed: () => Navigator.pop(context),
+              ),
+            ],
+          ),
+
+          const CustomDivider(verticalPadding: 12),
+
+          /// Network name
+          Container(
+            height: 56,
+            decoration: BoxDecoration(
+              color: AppColors.backgroundVariant,
+              borderRadius: BorderRadius.circular(4),
+            ),
+            child: TextField(
+              textAlignVertical: TextAlignVertical.center,
+
+              controller: _nameController,
+              onSubmitted: (_) {
+                FocusScope.of(context).requestFocus(_passwordFocusNode);
+              },
+              style: Theme.of(context).textTheme.bodyLarge,
+              decoration: InputDecoration(
+                border: InputBorder.none,
+                hintText: l10n.hintName,
+                hintStyle: Theme.of(context).textTheme.displaySmall,
+                prefixIcon: const Padding(
+                  padding: EdgeInsets.only(right: 8, left: 8, top: 8),
+                  child: CustomImage(
+                    assetPath: SettingIcons.wireless,
+                    size: 18,
+                    color: AppColors.onSurfaceVariantDark,
+                  ),
+                ),
+              ),
+            ),
+          ),
+
+          const SizedBox(height: 12),
+
+          /// Password
+          Container(
+            height: 56,
+            decoration: BoxDecoration(
+              color: AppColors.backgroundVariant,
+              borderRadius: BorderRadius.circular(4),
+            ),
+            child: TextField(
+              textAlignVertical: TextAlignVertical.center,
+              controller: _passwordController,
+              focusNode: _passwordFocusNode,
+              obscureText: _obscurePassword,
+              obscuringCharacter: '*',
+              textInputAction: TextInputAction.done,
+              onSubmitted: (_) => _onAdd(),
+              style: Theme.of(context).textTheme.bodyLarge,
+              decoration: InputDecoration(
+                border: InputBorder.none,
+                hintText: l10n.enterPassword,
+                hintStyle: Theme.of(context).textTheme.displaySmall,
+                prefixIcon: const Padding(
+                  padding: EdgeInsets.only(right: 8, left: 8, top: 8),
+                  child: Icon(
+                    Icons.lock_outline,
+                    size: 24,
+                    color: AppColors.onSurfaceVariantDark,
+                  ),
+                ),
+                suffixIcon: IconButton(
+                  icon: Icon(
+                    _obscurePassword
+                        ? Icons.visibility_off_outlined
+                        : Icons.visibility_outlined,
+                    size: 18,
+                  ),
+                  onPressed: () {
+                    setState(() {
+                      _obscurePassword = !_obscurePassword;
+                    });
+                  },
+                ),
+              ),
+            ),
+          ),
+
+          const SizedBox(height: 16),
+
+          /// Security row
+          InkWell(
+            onTap: () async {
+              final result = await Navigator.push<WirelessSecurity>(
+                context,
+                MaterialPageRoute(
+                  builder: (_) => SecuritySelectionScreen(selected: _security),
+                ),
+              );
+
+              if (result != null) {
+                setState(() {
+                  _security = result;
+                });
+              }
+            },
+            child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 12),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: Text(
+                      l10n.security,
+                      style: Theme.of(context).textTheme.bodyMedium,
+                    ),
+                  ),
+                  Text(
+                    _security.localizedLabel(l10n),
+                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                      color: AppColors.onSurfaceVariant,
+                    ),
+                  ),
+                  const SizedBox(width: 8),
+                  const Icon(
+                    Icons.chevron_right,
+                    size: 20,
+                    color: AppColors.onSurfaceVariant,
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+void showAddNetworkBottomSheet(BuildContext context) {
+  showModalBottomSheet(
+    context: context,
+    useRootNavigator: true,
+    isScrollControlled: true,
+    isDismissible: false,
+    enableDrag: false,
+    builder: (_) => const AddNetworkBottomSheet(),
+  );
+}

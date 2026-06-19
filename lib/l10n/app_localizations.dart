@@ -106,36 +106,6 @@ abstract class AppLocalizations {
   /// **'Wireless'**
   String get wireless;
 
-  /// No description provided for @manageWireless.
-  ///
-  /// In en, this message translates to:
-  /// **'Manage wireless'**
-  String get manageWireless;
-
-  /// No description provided for @onToggle.
-  ///
-  /// In en, this message translates to:
-  /// **'ON'**
-  String get onToggle;
-
-  /// No description provided for @offToggle.
-  ///
-  /// In en, this message translates to:
-  /// **'OFF'**
-  String get offToggle;
-
-  /// No description provided for @myNetworks.
-  ///
-  /// In en, this message translates to:
-  /// **'My networks'**
-  String get myNetworks;
-
-  /// No description provided for @avaialableNetworks.
-  ///
-  /// In en, this message translates to:
-  /// **'Available networks'**
-  String get avaialableNetworks;
-
   /// No description provided for @cellularData.
   ///
   /// In en, this message translates to:
@@ -189,6 +159,300 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'About'**
   String get about;
+
+  /// No description provided for @addWireless.
+  ///
+  /// In en, this message translates to:
+  /// **'Add wireless'**
+  String get addWireless;
+
+  /// No description provided for @manageWireless.
+  ///
+  /// In en, this message translates to:
+  /// **'Manage wireless'**
+  String get manageWireless;
+
+  /// No description provided for @onToggle.
+  ///
+  /// In en, this message translates to:
+  /// **'ON'**
+  String get onToggle;
+
+  /// No description provided for @offToggle.
+  ///
+  /// In en, this message translates to:
+  /// **'OFF'**
+  String get offToggle;
+
+  /// No description provided for @myNetworks.
+  ///
+  /// In en, this message translates to:
+  /// **'My networks'**
+  String get myNetworks;
+
+  /// No description provided for @avaialableNetworks.
+  ///
+  /// In en, this message translates to:
+  /// **'Available networks'**
+  String get avaialableNetworks;
+
+  /// No description provided for @joinNetwork.
+  ///
+  /// In en, this message translates to:
+  /// **'Join {networkName}'**
+  String joinNetwork(String networkName);
+
+  /// No description provided for @hintName.
+  ///
+  /// In en, this message translates to:
+  /// **'Name'**
+  String get hintName;
+
+  /// No description provided for @aboutNetwork.
+  ///
+  /// In en, this message translates to:
+  /// **'About the network'**
+  String get aboutNetwork;
+
+  /// No description provided for @privateWirelessAddress.
+  ///
+  /// In en, this message translates to:
+  /// **'Private Wireless address'**
+  String get privateWirelessAddress;
+
+  /// No description provided for @wirelessAddress.
+  ///
+  /// In en, this message translates to:
+  /// **'Wireless address'**
+  String get wirelessAddress;
+
+  /// No description provided for @autoJoin.
+  ///
+  /// In en, this message translates to:
+  /// **'Auto join'**
+  String get autoJoin;
+
+  /// No description provided for @password.
+  ///
+  /// In en, this message translates to:
+  /// **'Password'**
+  String get password;
+
+  /// No description provided for @lowDataMode.
+  ///
+  /// In en, this message translates to:
+  /// **'Low Data mode'**
+  String get lowDataMode;
+
+  /// No description provided for @limitIpAddressTracking.
+  ///
+  /// In en, this message translates to:
+  /// **'Limit IP Address Tracking'**
+  String get limitIpAddressTracking;
+
+  /// No description provided for @ipv4Address.
+  ///
+  /// In en, this message translates to:
+  /// **'IPv4 Address'**
+  String get ipv4Address;
+
+  /// No description provided for @configureIp.
+  ///
+  /// In en, this message translates to:
+  /// **'Configure IP'**
+  String get configureIp;
+
+  /// No description provided for @dns.
+  ///
+  /// In en, this message translates to:
+  /// **'DNS'**
+  String get dns;
+
+  /// No description provided for @configureDns.
+  ///
+  /// In en, this message translates to:
+  /// **'Configure DNS'**
+  String get configureDns;
+
+  /// No description provided for @httpProxy.
+  ///
+  /// In en, this message translates to:
+  /// **'HTTP Proxy'**
+  String get httpProxy;
+
+  /// No description provided for @configureProxy.
+  ///
+  /// In en, this message translates to:
+  /// **'Configure Proxy'**
+  String get configureProxy;
+
+  /// No description provided for @automatic.
+  ///
+  /// In en, this message translates to:
+  /// **'Automatic'**
+  String get automatic;
+
+  /// No description provided for @automaticDhcp.
+  ///
+  /// In en, this message translates to:
+  /// **'Automatic (DHCP)'**
+  String get automaticDhcp;
+
+  /// No description provided for @manual.
+  ///
+  /// In en, this message translates to:
+  /// **'Manual'**
+  String get manual;
+
+  /// No description provided for @none.
+  ///
+  /// In en, this message translates to:
+  /// **'None'**
+  String get none;
+
+  /// No description provided for @staticTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Static'**
+  String get staticTitle;
+
+  /// No description provided for @staticOption.
+  ///
+  /// In en, this message translates to:
+  /// **'Static'**
+  String get staticOption;
+
+  /// No description provided for @rotating.
+  ///
+  /// In en, this message translates to:
+  /// **'Rotating'**
+  String get rotating;
+
+  /// No description provided for @ipAddressLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'IP Address'**
+  String get ipAddressLabel;
+
+  /// No description provided for @ipAddressSettingsLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'IP Settings'**
+  String get ipAddressSettingsLabel;
+
+  /// No description provided for @subnetMaskLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Subnet Mask'**
+  String get subnetMaskLabel;
+
+  /// No description provided for @gatewayLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Gateway'**
+  String get gatewayLabel;
+
+  /// No description provided for @routerLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Router'**
+  String get routerLabel;
+
+  /// No description provided for @dnsServerLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'DNS Server'**
+  String get dnsServerLabel;
+
+  /// No description provided for @serversLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Servers'**
+  String get serversLabel;
+
+  /// No description provided for @off.
+  ///
+  /// In en, this message translates to:
+  /// **'Off'**
+  String get off;
+
+  /// No description provided for @enterPassword.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter password'**
+  String get enterPassword;
+
+  /// No description provided for @security.
+  ///
+  /// In en, this message translates to:
+  /// **'Security'**
+  String get security;
+
+  /// No description provided for @securityNone.
+  ///
+  /// In en, this message translates to:
+  /// **'None'**
+  String get securityNone;
+
+  /// No description provided for @securityWpa2Wpa3.
+  ///
+  /// In en, this message translates to:
+  /// **'WPA2 / WPA3'**
+  String get securityWpa2Wpa3;
+
+  /// No description provided for @securityWpa3.
+  ///
+  /// In en, this message translates to:
+  /// **'WPA3'**
+  String get securityWpa3;
+
+  /// No description provided for @securityWpa.
+  ///
+  /// In en, this message translates to:
+  /// **'WPA'**
+  String get securityWpa;
+
+  /// No description provided for @securityWpa2Enterprise.
+  ///
+  /// In en, this message translates to:
+  /// **'WPA2 Enterprise'**
+  String get securityWpa2Enterprise;
+
+  /// No description provided for @securityWep.
+  ///
+  /// In en, this message translates to:
+  /// **'WEP'**
+  String get securityWep;
+
+  /// No description provided for @fixed.
+  ///
+  /// In en, this message translates to:
+  /// **'Fixed'**
+  String get fixed;
+
+  /// No description provided for @randomized.
+  ///
+  /// In en, this message translates to:
+  /// **'Randomized'**
+  String get randomized;
+
+  /// No description provided for @connect.
+  ///
+  /// In en, this message translates to:
+  /// **'Connect'**
+  String get connect;
+
+  /// No description provided for @forget.
+  ///
+  /// In en, this message translates to:
+  /// **'Forget'**
+  String get forget;
+
+  /// No description provided for @noSavedNetwork.
+  ///
+  /// In en, this message translates to:
+  /// **'No saved networks'**
+  String get noSavedNetwork;
 }
 
 class _AppLocalizationsDelegate

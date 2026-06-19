@@ -1,3 +1,4 @@
+import 'package:mechanix_settings/core/theme/app_theme.dart';
 import 'package:mechanix_settings/core/widgets/section_list/section_item.dart';
 import 'package:flutter/material.dart';
 
@@ -17,13 +18,7 @@ class SectionList extends StatelessWidget {
         if (title != null)
           Padding(
             padding: const EdgeInsets.fromLTRB(16, 16, 16, 8),
-            child: Text(
-              title!,
-              style: theme.textTheme.labelLarge?.copyWith(
-                color: Colors.grey,
-                fontWeight: FontWeight.w500,
-              ),
-            ),
+            child: Text(title!, style: theme.textTheme.labelLarge),
           ),
 
         /// Items
@@ -59,14 +54,19 @@ class SectionListItem extends StatelessWidget {
                 style:
                     item.titleStyle ??
                     Theme.of(context).textTheme.bodyMedium?.copyWith(
-                      color: item.disabled ? Colors.grey : Colors.white,
+                      color: item.disabled
+                          ? AppColors.onSurfaceVariant
+                          : AppColors.onSurface,
                     ),
               ),
             ),
 
             /// Default chevron if no trailing
             item.trailing ??
-                const Icon(Icons.chevron_right, color: Colors.grey),
+                const Icon(
+                  Icons.chevron_right,
+                  color: AppColors.onSurfaceVariant,
+                ),
           ],
         ),
       ),

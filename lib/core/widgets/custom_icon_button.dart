@@ -89,15 +89,24 @@ class CustomIconButton extends StatelessWidget {
         ? (activeColor ?? AppColors.onSurface)
         : (disabledColor ?? AppColors.onSurfaceVariantDark);
 
-    return IconButton(
-      onPressed: enabled ? onPressed : null,
-      padding: padding,
-      constraints: BoxConstraints(minWidth: minSize, minHeight: minSize),
-      icon: IconTheme(
-        data: IconThemeData(color: color, size: iconSize),
-        child: ColorFiltered(
-          colorFilter: ColorFilter.mode(color, BlendMode.srcIn),
-          child: icon,
+    return Material(
+      color: Colors.transparent,
+      child: InkWell(
+        onTap: enabled ? onPressed : null,
+        borderRadius: BorderRadius.circular(8),
+        child: Container(
+          constraints: BoxConstraints(minWidth: minSize, minHeight: minSize),
+          decoration: BoxDecoration(
+            color: backgroundColor,
+            shape: BoxShape.rectangle,
+            borderRadius: BorderRadius.circular(8),
+          ),
+          padding: padding,
+          alignment: Alignment.center,
+          child: ColorFiltered(
+            colorFilter: ColorFilter.mode(color, BlendMode.srcIn),
+            child: SizedBox(width: iconSize, height: iconSize, child: icon),
+          ),
         ),
       ),
     );
