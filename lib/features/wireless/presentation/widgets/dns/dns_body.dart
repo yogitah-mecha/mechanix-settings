@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:mechanix_settings/core/theme/app_theme.dart';
 import 'package:mechanix_settings/core/utils/enums.dart';
 import 'package:mechanix_settings/core/widgets/custom_divider.dart';
 import 'package:mechanix_settings/features/wireless/presentation/widgets/wireless_settings/settings_section_header.dart';
@@ -43,7 +44,7 @@ class DNSBody extends StatelessWidget {
                     (type) => RadioListTile<DNSConfigType>(
                       value: type,
                       minTileHeight: 58,
-                      activeColor: Colors.white,
+                      activeColor: AppColors.onSurface,
                       title: Text(
                         type.label(l10n),
                         style: Theme.of(context).textTheme.bodyLarge,
@@ -54,7 +55,7 @@ class DNSBody extends StatelessWidget {
                 ],
               ),
             ),
-            if (configType == DNSConfigType.manual) ...[
+            if (configType == DNSConfigType.automatic) ...[
               SettingsSectionHeader(title: l10n.serversLabel),
 
               const SizedBox(height: 12),
@@ -71,7 +72,7 @@ class DNSBody extends StatelessWidget {
                     ),
                     title: Text(
                       servers[index],
-                      style: const TextStyle(color: Colors.white),
+                      style: Theme.of(context).textTheme.bodyLarge,
                     ),
                   );
                 },

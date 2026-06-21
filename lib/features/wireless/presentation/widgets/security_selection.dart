@@ -64,6 +64,7 @@ class _SecuritySelectionScreenState extends State<SecuritySelectionScreen> {
         child: ListView(
           children: WirelessSecurity.values.map((security) {
             return RadioListTile<WirelessSecurity>(
+              minTileHeight: 60,
               value: security,
               activeColor: AppColors.onSurface,
               title: Text(
