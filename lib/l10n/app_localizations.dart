@@ -304,6 +304,12 @@ abstract class AppLocalizations {
   /// **'Manual'**
   String get manual;
 
+  /// No description provided for @manualIp.
+  ///
+  /// In en, this message translates to:
+  /// **'Manual IP'**
+  String get manualIp;
+
   /// No description provided for @none.
   ///
   /// In en, this message translates to:

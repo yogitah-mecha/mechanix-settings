@@ -42,6 +42,7 @@
   "automatic": "Automatic",
   "automaticDhcp": "Automatic (DHCP)",
   "manual": "Manual",
+  "manualIp": "Manual IP",
   "none" : "None",
   "staticTitle": "Static",
   "staticOption": "Static",

@@ -75,15 +75,15 @@ extension ProxyTypeParsing on String {
   }
 }
 
-enum IPv4ConfigType { automaticDhcp, static }
+enum IPv4ConfigType { automatic, manual }
 
 extension IPv4ConfigTypeX on IPv4ConfigType {
   String label(AppLocalizations l10n) {
     switch (this) {
-      case IPv4ConfigType.automaticDhcp:
-        return l10n.automaticDhcp;
-      case IPv4ConfigType.static:
-        return l10n.staticOption;
+      case IPv4ConfigType.automatic:
+        return l10n.automatic;
+      case IPv4ConfigType.manual:
+        return l10n.manual;
     }
   }
 }
@@ -92,7 +92,7 @@ extension IPv4ConfigTypeParsing on String {
   IPv4ConfigType toIPv4ConfigType() {
     return IPv4ConfigType.values.firstWhere(
       (e) => e.name == this,
-      orElse: () => IPv4ConfigType.automaticDhcp,
+      orElse: () => IPv4ConfigType.automatic,
     );
   }
 }

@@ -77,7 +77,7 @@ class WirelessRepository {
   }
 
   Future<void> addNetwork(String name) async {
-    _availableNetworks.add(
+    _savedNetworks.add(
       WifiNetwork(
         name: name,
         signalLevel: 3,

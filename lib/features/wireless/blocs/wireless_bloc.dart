@@ -122,8 +122,8 @@ class WirelessBloc extends Bloc<WirelessEvent, WirelessState> {
     Emitter<WirelessState> emit,
   ) async {
     await _repository.addNetwork(event.name);
-    final availNets = await _repository.getAvailableNetworks();
-    emit(state.copyWith(availableNetworks: availNets));
+    final savedNetworks = await _repository.getSavedNetworks();
+    emit(state.copyWith(savedNetworks: savedNetworks));
   }
 
   Future<void> _onUpdateNetworkSettings(

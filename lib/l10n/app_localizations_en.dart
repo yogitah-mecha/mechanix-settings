@@ -116,6 +116,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get manual => 'Manual';
 
   @override
+  String get manualIp => 'Manual IP';
+
+  @override
   String get none => 'None';
 
   @override

@@ -37,7 +37,7 @@ class WifiNetwork extends Equatable {
     this.lowDataMode = false,
     this.limitIpAddressTracking = true,
     this.privateAddressType = PrivateAddressType.staticAddress,
-    this.ipConfigType = IPv4ConfigType.automaticDhcp,
+    this.ipConfigType = IPv4ConfigType.automatic,
     this.ipAddress = "192.168.29.187",
     this.subnetMask = "255.255.255.0",
     this.router = "192.168.29.1",

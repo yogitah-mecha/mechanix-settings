@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mechanix_settings/core/theme/app_theme.dart';
 import 'package:mechanix_settings/core/widgets/custom_divider.dart';
 import 'package:mechanix_settings/core/widgets/custom_icon_button.dart';
+import 'package:mechanix_settings/core/widgets/custom_text_field.dart';
 import 'package:mechanix_settings/l10n/app_localizations.dart';
 
 class WirelessPasswordBottomSheet extends StatefulWidget {
@@ -76,47 +77,30 @@ class _WirelessPasswordBottomSheetState
           const CustomDivider(verticalPadding: 12),
 
           /// Password
-          Container(
-            height: 56,
-            decoration: BoxDecoration(
-              color: AppColors.backgroundVariant,
-              borderRadius: BorderRadius.circular(4),
+          CustomTextField(
+            controller: _controller,
+            hintText: l10n.enterPassword,
+            obscureText: _obscurePassword,
+            obscuringCharacter: '*',
+            textInputAction: TextInputAction.done,
+            onSubmitted: (_) => _connect(),
+            prefixIcon: const Icon(
+              Icons.lock_outline,
+              size: 24,
+              color: AppColors.onSurfaceVariantDark,
             ),
-            child: TextField(
-              textAlignVertical: TextAlignVertical.center,
-              controller: _controller,
-              autofocus: true,
-              obscureText: _obscurePassword,
-              obscuringCharacter: '*',
-              textInputAction: TextInputAction.done,
-              onSubmitted: (_) => _connect(),
-              style: Theme.of(context).textTheme.bodyLarge,
-              decoration: InputDecoration(
-                border: InputBorder.none,
-                hintText: l10n.enterPassword,
-                hintStyle: Theme.of(context).textTheme.displaySmall,
-                prefixIcon: const Padding(
-                  padding: EdgeInsets.only(left: 8, right: 8, top: 8),
-                  child: Icon(
-                    Icons.lock_outline,
-                    size: 24,
-                    color: AppColors.onSurfaceVariantDark,
-                  ),
-                ),
-                suffixIcon: IconButton(
-                  icon: Icon(
-                    _obscurePassword
-                        ? Icons.visibility_off_outlined
-                        : Icons.visibility_outlined,
-                    size: 18,
-                  ),
-                  onPressed: () {
-                    setState(() {
-                      _obscurePassword = !_obscurePassword;
-                    });
-                  },
-                ),
+            suffixIcon: IconButton(
+              icon: Icon(
+                _obscurePassword
+                    ? Icons.visibility_off_outlined
+                    : Icons.visibility_outlined,
+                size: 18,
               ),
+              onPressed: () {
+                setState(() {
+                  _obscurePassword = !_obscurePassword;
+                });
+              },
             ),
           ),
 

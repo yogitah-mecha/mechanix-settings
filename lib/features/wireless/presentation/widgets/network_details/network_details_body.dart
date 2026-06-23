@@ -141,6 +141,7 @@ class NetworkDetailsBody extends StatelessWidget {
                             network.copyWith(
                               ipConfigType: data['config'] as IPv4ConfigType,
                               ipAddress: data['ipAddress'] as String,
+                              subnetMask: data['subnetMask'] as String,
                               router: data['gateway'] as String,
                             ),
                           ),
@@ -153,8 +154,8 @@ class NetworkDetailsBody extends StatelessWidget {
             ),
 
             if (network.isConnected &&
-                (network.ipConfigType == IPv4ConfigType.automaticDhcp ||
-                    network.ipConfigType == IPv4ConfigType.static)) ...[
+                (network.ipConfigType == IPv4ConfigType.automatic ||
+                    network.ipConfigType == IPv4ConfigType.manual)) ...[
               SettingsInfoRow(
                 title: l10n.ipAddressLabel,
                 value: network.ipAddress,

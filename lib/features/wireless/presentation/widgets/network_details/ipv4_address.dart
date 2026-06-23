@@ -6,10 +6,9 @@ import 'package:mechanix_settings/core/widgets/bottom_bar/bottom_bar.dart';
 import 'package:mechanix_settings/core/widgets/breadcrumbs.dart';
 import 'package:mechanix_settings/core/widgets/custom_divider.dart';
 import 'package:mechanix_settings/core/widgets/custom_icon_button.dart';
+import 'package:mechanix_settings/core/widgets/custom_text_field.dart';
 import 'package:mechanix_settings/features/wireless/data/models/wifi_network.dart';
 import 'package:mechanix_settings/features/wireless/presentation/screens/network_detail.dart';
-import 'package:mechanix_settings/features/wireless/presentation/widgets/wireless_settings/settings_info_row.dart';
-import 'package:mechanix_settings/features/wireless/presentation/widgets/wireless_settings/settings_config_row.dart';
 import 'package:mechanix_settings/features/wireless/presentation/widgets/wireless_settings/settings_section_header.dart';
 import 'package:mechanix_settings/l10n/app_localizations.dart';
 
@@ -35,21 +34,28 @@ class IPv4AddressScreen extends StatefulWidget {
 
 class _IPv4AddressScreenState extends State<IPv4AddressScreen> {
   late IPv4ConfigType _configType;
-  late String _ipAddress;
-  late String _gateway;
 
   final ScrollController _breadcrumbScrollController = ScrollController();
+  late final TextEditingController _ipController;
+  late final TextEditingController _subnetController;
+  late final TextEditingController _routerController;
 
   @override
   void initState() {
     super.initState();
+
     _configType = widget.currentConfig;
-    _ipAddress = widget.ipAddress;
-    _gateway = widget.gateway;
+
+    _ipController = TextEditingController(text: widget.ipAddress);
+    _subnetController = TextEditingController(text: widget.network.subnetMask);
+    _routerController = TextEditingController(text: widget.gateway);
   }
 
   @override
   void dispose() {
+    _ipController.dispose();
+    _subnetController.dispose();
+    _routerController.dispose();
     _breadcrumbScrollController.dispose();
     super.dispose();
   }
@@ -57,63 +63,12 @@ class _IPv4AddressScreenState extends State<IPv4AddressScreen> {
   void _saveAndPop() {
     widget.onSaved({
       'config': _configType,
-      'ipAddress': _ipAddress,
-      'gateway': _gateway,
+      'ipAddress': _ipController.text.trim(),
+      'gateway': _routerController.text.trim(),
+      'subnetMask': _subnetController.text.trim(),
     });
 
     Navigator.of(context).pop();
-  }
-
-  // TODO: update design
-  void _showEditFieldDialog({
-    required String title,
-    required String currentValue,
-    required ValueChanged<String> onSaved,
-  }) {
-    final controller = TextEditingController(text: currentValue);
-
-    showDialog(
-      context: context,
-      builder: (context) {
-        return AlertDialog(
-          backgroundColor: AppColors.backgroundVariant,
-          title: Text(
-            title,
-            style: Theme.of(
-              context,
-            ).textTheme.headlineMedium?.copyWith(color: AppColors.onSurface),
-          ),
-          content: TextField(
-            controller: controller,
-            style: const TextStyle(color: AppColors.onSurface),
-            decoration: const InputDecoration(
-              enabledBorder: UnderlineInputBorder(
-                borderSide: BorderSide(color: AppColors.onSurfaceVariantDark),
-              ),
-              focusedBorder: UnderlineInputBorder(
-                borderSide: BorderSide(color: AppColors.onSurface),
-              ),
-            ),
-          ),
-          actions: [
-            TextButton(
-              onPressed: () => Navigator.pop(context),
-              child: const Text(
-                'Cancel',
-                style: TextStyle(color: AppColors.onSurfaceVariant),
-              ),
-            ),
-            TextButton(
-              onPressed: () {
-                onSaved(controller.text.trim());
-                Navigator.pop(context);
-              },
-              child: const Text('Save', style: TextStyle(color: Colors.white)),
-            ),
-          ],
-        );
-      },
-    );
   }
 
   @override
@@ -182,27 +137,45 @@ class _IPv4AddressScreenState extends State<IPv4AddressScreen> {
 
             const CustomDivider(verticalPadding: 16),
 
-            if (_configType == IPv4ConfigType.static) ...[
-              SettingsSectionHeader(title: l10n.staticTitle),
+            if (_configType == IPv4ConfigType.manual) ...[
+              SettingsSectionHeader(title: l10n.manualIp),
 
               const SizedBox(height: 12),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: Column(
+                  children: [
+                    CustomTextField(
+                      controller: _ipController,
+                      hintText: l10n.ipAddressLabel,
+                      keyboardType: const TextInputType.numberWithOptions(
+                        decimal: true,
+                      ),
+                      textInputAction: TextInputAction.next,
+                    ),
 
-              SettingsInfoRow(
-                title: l10n.ipAddressSettingsLabel,
-                value: _ipAddress.isEmpty ? '255.255.255.25' : _ipAddress,
-              ),
+                    const SizedBox(height: 12),
 
-              SettingsConfigRow(
-                title: l10n.gatewayLabel,
-                value: _gateway.isEmpty ? l10n.none : _gateway,
-                onTap: () => _showEditFieldDialog(
-                  title: l10n.gatewayLabel,
-                  currentValue: _gateway,
-                  onSaved: (value) {
-                    setState(() {
-                      _gateway = value;
-                    });
-                  },
+                    CustomTextField(
+                      controller: _subnetController,
+                      hintText: l10n.subnetMaskLabel,
+                      keyboardType: const TextInputType.numberWithOptions(
+                        decimal: true,
+                      ),
+                      textInputAction: TextInputAction.next,
+                    ),
+
+                    const SizedBox(height: 12),
+
+                    CustomTextField(
+                      controller: _routerController,
+                      hintText: l10n.routerLabel,
+                      keyboardType: const TextInputType.numberWithOptions(
+                        decimal: true,
+                      ),
+                      textInputAction: TextInputAction.done,
+                    ),
+                  ],
                 ),
               ),
             ],
