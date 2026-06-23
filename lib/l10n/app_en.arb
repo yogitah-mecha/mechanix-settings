@@ -69,5 +69,14 @@
   "randomized": "Randomized",
   "connect" : "Connect",
   "forget" : "Forget",
-  "noSavedNetwork" : "No saved networks"
+  "noSavedNetwork" : "No saved networks",
+  "proxyUrl": "URL",
+  "proxyEnterUrl": "Enter url",
+  "proxyServer": "Server",
+  "proxyEnterServer": "Enter server",
+  "proxyPort": "Port",
+  "proxyEnterPort": "Enter port",
+  "proxyAuthentication": "Authentication",
+  "proxyUsername": "Username",
+  "proxyPassword": "Password"
 }

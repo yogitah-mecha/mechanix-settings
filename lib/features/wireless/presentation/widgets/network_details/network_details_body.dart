@@ -212,10 +212,18 @@ class NetworkDetailsBody extends StatelessWidget {
                     builder: (_) => ProxyScreen(
                       network: network,
                       currentConfig: proxyType,
-                      onSaved: (value) {
+                      onSaved: (data) {
                         bloc.add(
                           UpdateNetworkSettingsEvent(
-                            network.copyWith(proxyConfigType: value),
+                            network.copyWith(
+                              proxyConfigType: data['config'] as ProxyType,
+                              proxyUrl: data['url'] as String,
+                              proxyServer: data['server'] as String,
+                              proxyPort: data['port'] as String,
+                              proxyUseAuth: data['useAuth'] as bool,
+                              proxyUsername: data['username'] as String,
+                              proxyPassword: data['password'] as String,
+                            ),
                           ),
                         );
                       },

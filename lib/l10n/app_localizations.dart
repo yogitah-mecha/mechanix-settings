@@ -459,6 +459,60 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'No saved networks'**
   String get noSavedNetwork;
+
+  /// No description provided for @proxyUrl.
+  ///
+  /// In en, this message translates to:
+  /// **'URL'**
+  String get proxyUrl;
+
+  /// No description provided for @proxyEnterUrl.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter url'**
+  String get proxyEnterUrl;
+
+  /// No description provided for @proxyServer.
+  ///
+  /// In en, this message translates to:
+  /// **'Server'**
+  String get proxyServer;
+
+  /// No description provided for @proxyEnterServer.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter server'**
+  String get proxyEnterServer;
+
+  /// No description provided for @proxyPort.
+  ///
+  /// In en, this message translates to:
+  /// **'Port'**
+  String get proxyPort;
+
+  /// No description provided for @proxyEnterPort.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter port'**
+  String get proxyEnterPort;
+
+  /// No description provided for @proxyAuthentication.
+  ///
+  /// In en, this message translates to:
+  /// **'Authentication'**
+  String get proxyAuthentication;
+
+  /// No description provided for @proxyUsername.
+  ///
+  /// In en, this message translates to:
+  /// **'Username'**
+  String get proxyUsername;
+
+  /// No description provided for @proxyPassword.
+  ///
+  /// In en, this message translates to:
+  /// **'Password'**
+  String get proxyPassword;
 }
 
 class _AppLocalizationsDelegate

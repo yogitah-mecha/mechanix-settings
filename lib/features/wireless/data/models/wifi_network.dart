@@ -24,6 +24,12 @@ class WifiNetwork extends Equatable {
   final List<String> dnsServers;
 
   final ProxyType proxyConfigType;
+  final String proxyUrl;
+  final String proxyServer;
+  final String proxyPort;
+  final bool proxyUseAuth;
+  final String proxyUsername;
+  final String proxyPassword;
   final String wirelessAddress;
 
   const WifiNetwork({
@@ -47,6 +53,12 @@ class WifiNetwork extends Equatable {
       "2405:201:2029:f84b:c3d:dbdf:fe9f",
     ],
     this.proxyConfigType = ProxyType.off,
+    this.proxyUrl = '',
+    this.proxyServer = '',
+    this.proxyPort = '',
+    this.proxyUseAuth = false,
+    this.proxyUsername = '',
+    this.proxyPassword = '',
     this.wirelessAddress = "62:C5:7D:EB:85:66",
   });
 
@@ -73,6 +85,12 @@ class WifiNetwork extends Equatable {
     DNSConfigType? dnsConfigType,
     List<String>? dnsServers,
     ProxyType? proxyConfigType,
+    String? proxyUrl,
+    String? proxyServer,
+    String? proxyPort,
+    bool? proxyUseAuth,
+    String? proxyUsername,
+    String? proxyPassword,
     String? wirelessAddress,
   }) {
     return WifiNetwork(
@@ -95,6 +113,12 @@ class WifiNetwork extends Equatable {
       dnsConfigType: dnsConfigType ?? this.dnsConfigType,
       dnsServers: dnsServers ?? this.dnsServers,
       proxyConfigType: proxyConfigType ?? this.proxyConfigType,
+      proxyUrl: proxyUrl ?? this.proxyUrl,
+      proxyServer: proxyServer ?? this.proxyServer,
+      proxyPort: proxyPort ?? this.proxyPort,
+      proxyUseAuth: proxyUseAuth ?? this.proxyUseAuth,
+      proxyUsername: proxyUsername ?? this.proxyUsername,
+      proxyPassword: proxyPassword ?? this.proxyPassword,
       wirelessAddress: wirelessAddress ?? this.wirelessAddress,
     );
   }
@@ -118,6 +142,12 @@ class WifiNetwork extends Equatable {
     dnsConfigType,
     dnsServers,
     proxyConfigType,
+    proxyUrl,
+    proxyServer,
+    proxyPort,
+    proxyUseAuth,
+    proxyUsername,
+    proxyPassword,
     wirelessAddress,
   ];
 }

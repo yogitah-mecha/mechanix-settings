@@ -192,4 +192,31 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get noSavedNetwork => 'No saved networks';
+
+  @override
+  String get proxyUrl => 'URL';
+
+  @override
+  String get proxyEnterUrl => 'Enter url';
+
+  @override
+  String get proxyServer => 'Server';
+
+  @override
+  String get proxyEnterServer => 'Enter server';
+
+  @override
+  String get proxyPort => 'Port';
+
+  @override
+  String get proxyEnterPort => 'Enter port';
+
+  @override
+  String get proxyAuthentication => 'Authentication';
+
+  @override
+  String get proxyUsername => 'Username';
+
+  @override
+  String get proxyPassword => 'Password';
 }
