@@ -87,18 +87,22 @@ class _IPv4AddressScreenState extends State<IPv4AddressScreen> {
             BreadcrumbItem(
               label: l10n.settings,
               onTap: () {
-                _saveAndPop();
                 Navigator.of(context).popUntil((route) => route.isFirst);
               },
             ),
             BreadcrumbItem(
               label: l10n.wireless,
               onTap: () {
-                _saveAndPop();
+                Navigator.of(context).pop();
                 Navigator.of(context).pop();
               },
             ),
-            BreadcrumbItem(label: widget.network.name, onTap: _saveAndPop),
+            BreadcrumbItem(
+              label: widget.network.name,
+              onTap: () {
+                Navigator.of(context).pop();
+              },
+            ),
             BreadcrumbItem(label: l10n.ipv4Address),
           ],
         ),
@@ -186,12 +190,14 @@ class _IPv4AddressScreenState extends State<IPv4AddressScreen> {
         leading: CustomIconButton.asset(
           assetPath: SettingIcons.back,
           enabled: true,
-          onPressed: _saveAndPop,
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
         ),
 
         trailing: [
           CustomIconButton.asset(
-            assetPath: SettingIcons.connect,
+            assetPath: SettingIcons.check,
             enabled: true,
             onPressed: () {
               connectToNetwork(context, widget.network);

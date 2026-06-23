@@ -45,7 +45,7 @@ class _SecuritySelectionScreenState extends State<SecuritySelectionScreen> {
           items: [
             BreadcrumbItem(
               label: l10n.addWireless,
-              onTap: () => Navigator.pop(context, _selected),
+              onTap: () => Navigator.pop(context),
             ),
             BreadcrumbItem(label: l10n.security),
           ],
@@ -79,9 +79,18 @@ class _SecuritySelectionScreenState extends State<SecuritySelectionScreen> {
         leading: CustomIconButton.asset(
           assetPath: SettingIcons.back,
           onPressed: () {
-            Navigator.pop(context, _selected);
+            Navigator.pop(context);
           },
         ),
+
+        trailing: [
+          CustomIconButton.asset(
+            assetPath: SettingIcons.check,
+            onPressed: () {
+              Navigator.pop(context, _selected);
+            },
+          ),
+        ],
       ),
     );
   }

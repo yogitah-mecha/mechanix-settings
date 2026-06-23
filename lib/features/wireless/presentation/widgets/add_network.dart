@@ -38,11 +38,16 @@ class _AddNetworkBottomSheetState extends State<AddNetworkBottomSheet> {
     final name = _nameController.text.trim();
     final password = _passwordController.text.trim();
 
-    if (name.isEmpty || password.isEmpty) {
+    if (name.isEmpty || (password.isEmpty && _security.requiresPassword)) {
       return;
     }
 
-    context.read<WirelessBloc>().add(AddNetworkEvent(name, password));
+    context.read<WirelessBloc>().add(
+          AddNetworkEvent(
+            name,
+            _security.requiresPassword ? password : '',
+          ),
+        );
 
     Navigator.pop(context);
   }
@@ -84,7 +89,11 @@ class _AddNetworkBottomSheetState extends State<AddNetworkBottomSheet> {
           CustomTextField(
             controller: _nameController,
             hintText: l10n.hintName,
-            nextFocusNode: _passwordFocusNode,
+            nextFocusNode: _security.requiresPassword ? _passwordFocusNode : null,
+            textInputAction: _security.requiresPassword
+                ? TextInputAction.next
+                : TextInputAction.done,
+            onSubmitted: _security.requiresPassword ? null : (_) => _onAdd(),
             prefixIcon: const CustomImage(
               assetPath: SettingIcons.wireless,
               size: 18,
@@ -95,34 +104,36 @@ class _AddNetworkBottomSheetState extends State<AddNetworkBottomSheet> {
           const SizedBox(height: 12),
 
           /// Password
-          CustomTextField(
-            controller: _passwordController,
-            hintText: l10n.enterPassword,
-            focusNode: _passwordFocusNode,
-            textInputAction: TextInputAction.done,
-            obscureText: _obscurePassword,
-            obscuringCharacter: '*',
-            onSubmitted: (_) => _onAdd(),
-            prefixIcon: const Icon(
-              Icons.lock_outline,
-              size: 24,
-              color: AppColors.onSurfaceVariantDark,
-            ),
-            suffixIcon: IconButton(
-              icon: Icon(
-                _obscurePassword
-                    ? Icons.visibility_off_outlined
-                    : Icons.visibility_outlined,
-                size: 18,
+          if (_security.requiresPassword) ...[
+            CustomTextField(
+              controller: _passwordController,
+              hintText: l10n.enterPassword,
+              focusNode: _passwordFocusNode,
+              textInputAction: TextInputAction.done,
+              obscureText: _obscurePassword,
+              obscuringCharacter: '*',
+              onSubmitted: (_) => _onAdd(),
+              prefixIcon: const Icon(
+                Icons.lock_outline,
+                size: 24,
+                color: AppColors.onSurfaceVariantDark,
               ),
-              onPressed: () {
-                setState(() {
-                  _obscurePassword = !_obscurePassword;
-                });
-              },
+              suffixIcon: IconButton(
+                icon: Icon(
+                  _obscurePassword
+                      ? Icons.visibility_off_outlined
+                      : Icons.visibility_outlined,
+                  size: 18,
+                ),
+                onPressed: () {
+                  setState(() {
+                    _obscurePassword = !_obscurePassword;
+                  });
+                },
+              ),
             ),
-          ),
-          const SizedBox(height: 16),
+            const SizedBox(height: 16),
+          ],
 
           /// Security row
           InkWell(

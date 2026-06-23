@@ -25,6 +25,8 @@ extension WirelessSecurityX on WirelessSecurity {
         return l10n.securityWep;
     }
   }
+
+  bool get requiresPassword => this != WirelessSecurity.none;
 }
 
 enum PrivateAddressType { off, staticAddress, rotating }

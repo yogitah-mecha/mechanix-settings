@@ -66,21 +66,20 @@ class _PrivateWirelessAddressScreenState
             BreadcrumbItem(
               label: l10n.settings,
               onTap: () {
-                _saveAndPop();
                 Navigator.of(context).popUntil((route) => route.isFirst);
               },
             ),
             BreadcrumbItem(
               label: l10n.wireless,
               onTap: () {
-                _saveAndPop();
+                Navigator.of(context).pop();
                 Navigator.of(context).pop();
               },
             ),
             BreadcrumbItem(
               label: widget.networkName,
               onTap: () {
-                _saveAndPop();
+                Navigator.of(context).pop();
               },
             ),
             BreadcrumbItem(label: l10n.privateWirelessAddress),
@@ -124,8 +123,20 @@ class _PrivateWirelessAddressScreenState
         leading: CustomIconButton.asset(
           assetPath: SettingIcons.back,
           enabled: true,
-          onPressed: _saveAndPop,
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
         ),
+        trailing: [
+          CustomIconButton.asset(
+            assetPath: SettingIcons.check,
+            enabled: true,
+            onPressed: () {
+              _saveAndPop();
+              Navigator.of(context).pop();
+            },
+          ),
+        ],
       ),
     );
   }
