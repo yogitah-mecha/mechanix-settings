@@ -78,5 +78,9 @@
   "proxyEnterPort": "Enter port",
   "proxyAuthentication": "Authentication",
   "proxyUsername": "Username",
-  "proxyPassword": "Password"
+  "proxyPassword": "Password",
+  "dnsServers": "DNS Servers",
+  "searchDomains": "Search Domains",
+  "addServer": "Add Server",
+  "addDomainsHintText": "domain.com"
 }

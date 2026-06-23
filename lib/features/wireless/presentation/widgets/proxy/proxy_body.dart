@@ -135,7 +135,10 @@ class ProxyBody extends StatelessWidget {
               const SizedBox(height: 16),
 
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 16,
+                  vertical: 16,
+                ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -152,7 +155,10 @@ class ProxyBody extends StatelessWidget {
                 const SizedBox(height: 16),
 
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 16,
+                    vertical: 8,
+                  ),
                   child: CustomTextField(
                     controller: usernameController,
                     focusNode: usernameFocus,

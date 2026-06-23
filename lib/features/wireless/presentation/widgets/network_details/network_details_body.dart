@@ -189,6 +189,9 @@ class NetworkDetailsBody extends StatelessWidget {
                               dnsServers: List<String>.from(
                                 data['servers'] as List,
                               ),
+                              dnsSearchDomains: List<String>.from(
+                                data['searchDomains'] as List,
+                              ),
                             ),
                           ),
                         );

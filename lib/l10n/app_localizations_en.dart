@@ -219,4 +219,16 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get proxyPassword => 'Password';
+
+  @override
+  String get dnsServers => 'DNS Servers';
+
+  @override
+  String get searchDomains => 'Search Domains';
+
+  @override
+  String get addServer => 'Add Server';
+
+  @override
+  String get addDomainsHintText => 'domain.com';
 }

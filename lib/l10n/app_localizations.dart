@@ -513,6 +513,30 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Password'**
   String get proxyPassword;
+
+  /// No description provided for @dnsServers.
+  ///
+  /// In en, this message translates to:
+  /// **'DNS Servers'**
+  String get dnsServers;
+
+  /// No description provided for @searchDomains.
+  ///
+  /// In en, this message translates to:
+  /// **'Search Domains'**
+  String get searchDomains;
+
+  /// No description provided for @addServer.
+  ///
+  /// In en, this message translates to:
+  /// **'Add Server'**
+  String get addServer;
+
+  /// No description provided for @addDomainsHintText.
+  ///
+  /// In en, this message translates to:
+  /// **'domain.com'**
+  String get addDomainsHintText;
 }
 
 class _AppLocalizationsDelegate

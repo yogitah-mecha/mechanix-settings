@@ -22,6 +22,7 @@ class WifiNetwork extends Equatable {
 
   final DNSConfigType dnsConfigType;
   final List<String> dnsServers;
+  final List<String> dnsSearchDomains;
 
   final ProxyType proxyConfigType;
   final String proxyUrl;
@@ -52,6 +53,7 @@ class WifiNetwork extends Equatable {
       "192.168.29.187",
       "2405:201:2029:f84b:c3d:dbdf:fe9f",
     ],
+    this.dnsSearchDomains = const [],
     this.proxyConfigType = ProxyType.off,
     this.proxyUrl = '',
     this.proxyServer = '',
@@ -84,6 +86,7 @@ class WifiNetwork extends Equatable {
     String? router,
     DNSConfigType? dnsConfigType,
     List<String>? dnsServers,
+    List<String>? dnsSearchDomains,
     ProxyType? proxyConfigType,
     String? proxyUrl,
     String? proxyServer,
@@ -112,6 +115,7 @@ class WifiNetwork extends Equatable {
       router: router ?? this.router,
       dnsConfigType: dnsConfigType ?? this.dnsConfigType,
       dnsServers: dnsServers ?? this.dnsServers,
+      dnsSearchDomains: dnsSearchDomains ?? this.dnsSearchDomains,
       proxyConfigType: proxyConfigType ?? this.proxyConfigType,
       proxyUrl: proxyUrl ?? this.proxyUrl,
       proxyServer: proxyServer ?? this.proxyServer,
@@ -141,6 +145,7 @@ class WifiNetwork extends Equatable {
     router,
     dnsConfigType,
     dnsServers,
+    dnsSearchDomains,
     proxyConfigType,
     proxyUrl,
     proxyServer,
