@@ -1,6 +1,5 @@
 import 'package:equatable/equatable.dart';
-
-enum BluetoothDeviceType { mobile, speaker, other }
+import 'package:mechanix_settings/features/bluetooth/data/models/enums.dart';
 
 class BluetoothDevice extends Equatable {
   final String name;

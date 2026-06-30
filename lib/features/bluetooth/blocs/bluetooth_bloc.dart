@@ -4,6 +4,8 @@ import 'package:mechanix_settings/features/bluetooth/data/repositories/bluetooth
 import 'package:mechanix_settings/features/bluetooth/blocs/bluetooth_event.dart';
 import 'package:mechanix_settings/features/bluetooth/blocs/bluetooth_state.dart';
 
+import '../../../core/utils/app_logger.dart';
+
 export 'bluetooth_event.dart';
 export 'bluetooth_state.dart';
 
@@ -29,70 +31,76 @@ class BluetoothBloc extends Bloc<BluetoothEvent, BluetoothState> {
     LoadBluetooth event,
     Emitter<BluetoothState> emit,
   ) async {
-    final paired = await _repository.getPairedDevices();
-    final discovered = await _repository.getDiscoveredDevices();
-    final localDeviceName = await _repository.getLocalDeviceName();
+    try {
+      final paired = await _repository.getPairedDevices();
+      final discovered = await _repository.getDiscoveredDevices();
+      final localDeviceName = await _repository.getLocalDeviceName();
 
-    String? connectedName;
-    for (var d in paired) {
-      if (d.isConnected) connectedName = d.name;
+      String? connectedName;
+      for (var d in paired) {
+        if (d.isConnected) connectedName = d.name;
+      }
+
+      emit(
+        state.copyWith(
+          pairedDevices: paired,
+          discoveredDevices: discovered,
+          connectedDeviceName: connectedName,
+          localDeviceName: localDeviceName,
+        ),
+      );
+    } catch (e, stackTrace) {
+      AppLogger.e('Failed to load bluetooth devices: $e', stack: stackTrace);
     }
-
-    emit(
-      state.copyWith(
-        pairedDevices: paired,
-        discoveredDevices: discovered,
-        connectedDeviceName: connectedName,
-        localDeviceName: localDeviceName,
-      ),
-    );
   }
 
   Future<void> _onToggleBluetoothPower(
     ToggleBluetoothPower event,
     Emitter<BluetoothState> emit,
   ) async {
-    _scanTimer?.cancel();
+    try {
+      _scanTimer?.cancel();
 
-    if (event.isEnabled) {
-      emit(
-        state.copyWith(
-          isBluetoothOn: true,
-          isScanning: true,
-          connectingDeviceName: null,
-          pairingRequestDevice: null,
-          pairingCodeDisplayDevice: null,
-        ),
-      );
+      if (event.isEnabled) {
+        emit(
+          state.copyWith(
+            isBluetoothOn: true,
+            isScanning: true,
+            connectingDeviceName: null,
+            pairingRequestDevice: null,
+            pairingCodeDisplayDevice: null,
+          ),
+        );
 
-      final paired = await _repository.getPairedDevices();
-      final discovered = await _repository.getDiscoveredDevices();
+        final paired = await _repository.getPairedDevices();
+        final discovered = await _repository.getDiscoveredDevices();
 
-      add(const ScanBluetoothDevices());
+        add(const ScanBluetoothDevices());
 
-      emit(
-        state.copyWith(pairedDevices: paired, discoveredDevices: discovered),
-      );
-    } else {
-      if (state.connectedDeviceName != null) {
-        await _repository.disconnectFromDevice(state.connectedDeviceName!);
+        emit(
+          state.copyWith(pairedDevices: paired, discoveredDevices: discovered),
+        );
+      } else {
+        await _repository.disconnectAll();
+
+        final paired = await _repository.getPairedDevices();
+        final discovered = await _repository.getDiscoveredDevices();
+
+        emit(
+          state.copyWith(
+            isBluetoothOn: false,
+            isScanning: false,
+            connectingDeviceName: null,
+            connectedDeviceName: null,
+            pairingRequestDevice: null,
+            pairingCodeDisplayDevice: null,
+            pairedDevices: paired,
+            discoveredDevices: discovered,
+          ),
+        );
       }
-
-      final paired = await _repository.getPairedDevices();
-      final discovered = await _repository.getDiscoveredDevices();
-
-      emit(
-        state.copyWith(
-          isBluetoothOn: false,
-          isScanning: false,
-          connectingDeviceName: null,
-          connectedDeviceName: null,
-          pairingRequestDevice: null,
-          pairingCodeDisplayDevice: null,
-          pairedDevices: paired,
-          discoveredDevices: discovered,
-        ),
-      );
+    } catch (e, stackTrace) {
+      AppLogger.e('Failed to toggle bluetooth: $e', stack: stackTrace);
     }
   }
 
@@ -100,9 +108,14 @@ class BluetoothBloc extends Bloc<BluetoothEvent, BluetoothState> {
     ScanBluetoothDevices event,
     Emitter<BluetoothState> emit,
   ) async {
-    await Future.delayed(const Duration(milliseconds: 1500));
-    if (state.isBluetoothOn) {
-      emit(state.copyWith(isScanning: false));
+    try {
+      await Future.delayed(const Duration(milliseconds: 1500));
+
+      if (state.isBluetoothOn) {
+        emit(state.copyWith(isScanning: false));
+      }
+    } catch (e, stackTrace) {
+      AppLogger.e('Failed to scan bluetooth devices: $e', stack: stackTrace);
     }
   }
 
@@ -110,90 +123,115 @@ class BluetoothBloc extends Bloc<BluetoothEvent, BluetoothState> {
     ConnectToDeviceEvent event,
     Emitter<BluetoothState> emit,
   ) async {
-    final isAlreadyConnected = state.pairedDevices.any(
-      (d) => d.name == event.device.name && d.isConnected,
-    );
-    if (isAlreadyConnected) {
-      return;
-    }
-
-    // Trigger pairing simulation sheets if the device is not paired
-    if (!event.device.isSaved) {
-      if (event.device.name == 'iPhone 15 Pro') {
-        add(ShowPairingInputEvent(event.device));
-        return;
-      } else if (event.device.name == 'JBL Charge 5') {
-        add(ShowPairingCodeEvent(event.device));
+    try {
+      final isAlreadyConnected = state.pairedDevices.any(
+        (d) => d.name == event.device.name && d.isConnected,
+      );
+      if (isAlreadyConnected) {
         return;
       }
-    }
 
-    // Direct connect if already paired or other devices
-    add(CompletePairingEvent(event.device));
+      // Trigger pairing simulation sheets if the device is not paired
+      if (!event.device.isSaved) {
+        if (event.device.name == 'iPhone 15 Pro') {
+          add(ShowPairingInputEvent(event.device));
+          return;
+        } else if (event.device.name == 'JBL Charge 5') {
+          add(ShowPairingCodeEvent(event.device));
+          return;
+        }
+      }
+
+      // Direct connect if already paired or other devices
+      add(CompletePairingEvent(event.device));
+    } catch (e, stackTrace) {
+      AppLogger.e(
+        'Failed to connect to bluetooth device: $e',
+        stack: stackTrace,
+      );
+    }
   }
 
   Future<void> _onShowPairingInput(
     ShowPairingInputEvent event,
     Emitter<BluetoothState> emit,
   ) async {
-    emit(state.copyWith(pairingRequestDevice: event.device));
+    try {
+      emit(state.copyWith(pairingRequestDevice: event.device));
+    } catch (e, stackTrace) {
+      AppLogger.e('Failed to show pairing input: $e', stack: stackTrace);
+    }
   }
 
   Future<void> _onShowPairingCode(
     ShowPairingCodeEvent event,
     Emitter<BluetoothState> emit,
   ) async {
-    emit(state.copyWith(pairingCodeDisplayDevice: event.device));
+    try {
+      emit(state.copyWith(pairingCodeDisplayDevice: event.device));
+    } catch (e, stackTrace) {
+      AppLogger.e('Failed to show pairing code: $e', stack: stackTrace);
+    }
   }
 
   Future<void> _onCancelPairing(
     CancelPairingEvent event,
     Emitter<BluetoothState> emit,
   ) async {
-    emit(
-      state.copyWith(
-        pairingRequestDevice: null,
-        pairingCodeDisplayDevice: null,
-        connectingDeviceName: null,
-      ),
-    );
+    try {
+      emit(
+        state.copyWith(
+          pairingRequestDevice: null,
+          pairingCodeDisplayDevice: null,
+          connectingDeviceName: null,
+        ),
+      );
+    } catch (e, stackTrace) {
+      AppLogger.e('Failed to cancel pairing: $e', stack: stackTrace);
+    }
   }
 
   Future<void> _onCompletePairing(
     CompletePairingEvent event,
     Emitter<BluetoothState> emit,
   ) async {
-    final updatedPaired = state.pairedDevices.map((d) {
-      return d.copyWith(isConnecting: d.name == event.device.name);
-    }).toList();
-    final updatedDiscovered = state.discoveredDevices.map((d) {
-      return d.copyWith(isConnecting: d.name == event.device.name);
-    }).toList();
-
-    emit(
-      state.copyWith(
-        connectingDeviceName: event.device.name,
-        pairingRequestDevice: null,
-        pairingCodeDisplayDevice: null,
-        pairedDevices: updatedPaired,
-        discoveredDevices: updatedDiscovered,
-      ),
-    );
-
-    await _repository.connectToDevice(event.device.name);
-
-    if (state.isBluetoothOn) {
-      final paired = await _repository.getPairedDevices();
-      final discovered = await _repository.getDiscoveredDevices();
+    try {
+      final updatedPaired = state.pairedDevices.map((d) {
+        return d.copyWith(isConnecting: d.name == event.device.name);
+      }).toList();
+      final updatedDiscovered = state.discoveredDevices.map((d) {
+        return d.copyWith(isConnecting: d.name == event.device.name);
+      }).toList();
 
       emit(
         state.copyWith(
-          pairedDevices: paired,
-          discoveredDevices: discovered,
-          connectingDeviceName: null,
-          connectedDeviceName: event.device.name,
+          connectingDeviceName: event.device.name,
+          pairingRequestDevice: null,
+          pairingCodeDisplayDevice: null,
+          pairedDevices: updatedPaired,
+          discoveredDevices: updatedDiscovered,
         ),
       );
+
+      await _repository.connectToDevice(event.device.name);
+
+      if (state.isBluetoothOn) {
+        final paired = await _repository.getPairedDevices();
+        final discovered = await _repository.getDiscoveredDevices();
+
+        emit(
+          state.copyWith(
+            pairedDevices: paired,
+            discoveredDevices: discovered,
+            connectingDeviceName: null,
+            connectedDeviceName: event.device.name,
+          ),
+        );
+      }
+    } catch (e, stackTrace) {
+      AppLogger.e('Failed to complete pairing: $e', stack: stackTrace);
+
+      emit(state.copyWith(connectingDeviceName: null));
     }
   }
 
@@ -201,20 +239,27 @@ class BluetoothBloc extends Bloc<BluetoothEvent, BluetoothState> {
     DisconnectFromDeviceEvent event,
     Emitter<BluetoothState> emit,
   ) async {
-    await _repository.disconnectFromDevice(event.device.name);
+    try {
+      await _repository.disconnectFromDevice(event.device.name);
 
-    if (state.isBluetoothOn) {
-      final paired = await _repository.getPairedDevices();
-      final discovered = await _repository.getDiscoveredDevices();
+      if (state.isBluetoothOn) {
+        final paired = await _repository.getPairedDevices();
+        final discovered = await _repository.getDiscoveredDevices();
 
-      emit(
-        state.copyWith(
-          pairedDevices: paired,
-          discoveredDevices: discovered,
-          connectedDeviceName: state.connectedDeviceName == event.device.name
-              ? null
-              : state.connectedDeviceName,
-        ),
+        emit(
+          state.copyWith(
+            pairedDevices: paired,
+            discoveredDevices: discovered,
+            connectedDeviceName: state.connectedDeviceName == event.device.name
+                ? null
+                : state.connectedDeviceName,
+          ),
+        );
+      }
+    } catch (e, stackTrace) {
+      AppLogger.e(
+        'Failed to disconnect bluetooth device: $e',
+        stack: stackTrace,
       );
     }
   }
@@ -223,24 +268,29 @@ class BluetoothBloc extends Bloc<BluetoothEvent, BluetoothState> {
     ForgetDeviceEvent event,
     Emitter<BluetoothState> emit,
   ) async {
-    await _repository.forgetDevice(event.device.name);
+    try {
+      await _repository.forgetDevice(event.device.name);
 
-    if (state.isBluetoothOn) {
-      final paired = await _repository.getPairedDevices();
-      final discovered = await _repository.getDiscoveredDevices();
+      if (state.isBluetoothOn) {
+        final paired = await _repository.getPairedDevices();
+        final discovered = await _repository.getDiscoveredDevices();
 
-      emit(
-        state.copyWith(
-          pairedDevices: paired,
-          discoveredDevices: discovered,
-          connectedDeviceName: state.connectedDeviceName == event.device.name
-              ? null
-              : state.connectedDeviceName,
-          connectingDeviceName: state.connectingDeviceName == event.device.name
-              ? null
-              : state.connectingDeviceName,
-        ),
-      );
+        emit(
+          state.copyWith(
+            pairedDevices: paired,
+            discoveredDevices: discovered,
+            connectedDeviceName: state.connectedDeviceName == event.device.name
+                ? null
+                : state.connectedDeviceName,
+            connectingDeviceName:
+                state.connectingDeviceName == event.device.name
+                ? null
+                : state.connectingDeviceName,
+          ),
+        );
+      }
+    } catch (e, stackTrace) {
+      AppLogger.e('Failed to forget bluetooth device: $e', stack: stackTrace);
     }
   }
 
@@ -248,8 +298,12 @@ class BluetoothBloc extends Bloc<BluetoothEvent, BluetoothState> {
     RenameLocalDeviceEvent event,
     Emitter<BluetoothState> emit,
   ) async {
-    await _repository.updateLocalDeviceName(event.name);
-    emit(state.copyWith(localDeviceName: event.name));
+    try {
+      await _repository.updateLocalDeviceName(event.name);
+      emit(state.copyWith(localDeviceName: event.name));
+    } catch (e, stackTrace) {
+      AppLogger.e('Failed to rename bluetooth device: $e', stack: stackTrace);
+    }
   }
 
   @override

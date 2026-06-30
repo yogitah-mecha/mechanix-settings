@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:mechanix_settings/features/bluetooth/data/models/bluetooth_device.dart';
+import 'package:mechanix_settings/features/bluetooth/data/models/enums.dart';
 
 class BluetoothRepository {
   final List<BluetoothDevice> _devices = [
@@ -57,6 +58,17 @@ class BluetoothRepository {
   Future<void> disconnectFromDevice(String name) async {
     for (int i = 0; i < _devices.length; i++) {
       if (_devices[i].name == name) {
+        _devices[i] = _devices[i].copyWith(
+          isConnected: false,
+          isConnecting: false,
+        );
+      }
+    }
+  }
+
+  Future<void> disconnectAll() async {
+    for (int i = 0; i < _devices.length; i++) {
+      if (_devices[i].isConnected) {
         _devices[i] = _devices[i].copyWith(
           isConnected: false,
           isConnecting: false,

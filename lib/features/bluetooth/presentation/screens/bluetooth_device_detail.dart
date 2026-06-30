@@ -5,6 +5,7 @@ import 'package:mechanix_settings/core/widgets/custom_icon_button.dart';
 import 'package:mechanix_settings/core/constants/icons.dart';
 import 'package:mechanix_settings/features/bluetooth/blocs/bluetooth_bloc.dart';
 import 'package:mechanix_settings/features/bluetooth/data/models/bluetooth_device.dart';
+import 'package:mechanix_settings/features/bluetooth/data/models/enums.dart';
 import 'package:mechanix_settings/features/bluetooth/presentation/widgets/bluetooth/bluetooth_app_bar.dart';
 import 'package:mechanix_settings/features/bluetooth/presentation/widgets/info_row.dart';
 import 'package:mechanix_settings/l10n/app_localizations.dart';
