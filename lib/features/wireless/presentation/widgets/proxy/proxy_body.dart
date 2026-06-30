@@ -2,7 +2,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:mechanix_settings/core/theme/app_theme.dart';
-import 'package:mechanix_settings/core/utils/enums.dart';
+import 'package:mechanix_settings/features/wireless/data/models/enums.dart';
 import 'package:mechanix_settings/core/widgets/custom_divider.dart';
 import 'package:mechanix_settings/core/widgets/custom_switch.dart';
 import 'package:mechanix_settings/core/widgets/custom_text_field.dart';

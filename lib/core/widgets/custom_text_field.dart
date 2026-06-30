@@ -64,18 +64,18 @@ class CustomTextField extends StatelessWidget {
           border: InputBorder.none,
           hintText: hintText,
           hintStyle: Theme.of(context).textTheme.displaySmall,
-          prefixIcon: prefixIcon == null
-              ? null
-              : Padding(
+          prefixIcon: prefixIcon != null
+              ? Padding(
                   padding: const EdgeInsets.only(right: 8, left: 8, top: 8),
                   child: prefixIcon,
-                ),
-          suffixIcon: suffixIcon == null
-              ? null
-              : Padding(
+                )
+              : null,
+          suffixIcon: suffixIcon != null
+              ? Padding(
                   padding: const EdgeInsets.only(right: 8, left: 8, top: 8),
                   child: suffixIcon,
-                ),
+                )
+              : null,
         ),
       ),
     );

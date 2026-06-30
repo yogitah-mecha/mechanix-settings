@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mechanix_settings/core/constants/icons.dart';
 import 'package:mechanix_settings/core/theme/app_theme.dart';
-import 'package:mechanix_settings/core/utils/enums.dart';
+import 'package:mechanix_settings/features/wireless/data/models/enums.dart';
 import 'package:mechanix_settings/core/widgets/custom_icon_button.dart';
 import 'package:mechanix_settings/core/widgets/custom_image_asset.dart';
 import 'wifi_signal_icon.dart';

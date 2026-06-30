@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mechanix_settings/core/utils/enums.dart';
+import 'package:mechanix_settings/features/wireless/data/models/enums.dart';
 import 'package:mechanix_settings/core/widgets/bottom_bar/bottom_bar.dart';
 import 'package:mechanix_settings/core/widgets/custom_icon_button.dart';
 import 'package:mechanix_settings/core/constants/icons.dart';
