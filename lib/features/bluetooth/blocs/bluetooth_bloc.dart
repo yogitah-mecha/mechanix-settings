@@ -74,6 +74,13 @@ class BluetoothBloc extends Bloc<BluetoothEvent, BluetoothState> {
         state.copyWith(pairedDevices: paired, discoveredDevices: discovered),
       );
     } else {
+      if (state.connectedDeviceName != null) {
+        await _repository.disconnectFromDevice(state.connectedDeviceName!);
+      }
+
+      final paired = await _repository.getPairedDevices();
+      final discovered = await _repository.getDiscoveredDevices();
+
       emit(
         state.copyWith(
           isBluetoothOn: false,
@@ -82,6 +89,8 @@ class BluetoothBloc extends Bloc<BluetoothEvent, BluetoothState> {
           connectedDeviceName: null,
           pairingRequestDevice: null,
           pairingCodeDisplayDevice: null,
+          pairedDevices: paired,
+          discoveredDevices: discovered,
         ),
       );
     }
@@ -110,10 +119,10 @@ class BluetoothBloc extends Bloc<BluetoothEvent, BluetoothState> {
 
     // Trigger pairing simulation sheets if the device is not paired
     if (!event.device.isSaved) {
-      if (event.device.name == 'Connect2') {
+      if (event.device.name == 'iPhone 15 Pro') {
         add(ShowPairingInputEvent(event.device));
         return;
-      } else if (event.device.name == 'JBL speaker cinema') {
+      } else if (event.device.name == 'JBL Charge 5') {
         add(ShowPairingCodeEvent(event.device));
         return;
       }

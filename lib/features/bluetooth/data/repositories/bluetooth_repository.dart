@@ -4,22 +4,29 @@ import 'package:mechanix_settings/features/bluetooth/data/models/bluetooth_devic
 class BluetoothRepository {
   final List<BluetoothDevice> _devices = [
     const BluetoothDevice(
-      name: 'Connect1',
-      deviceName: 'My Phone',
+      name: 'Galaxy S24',
+      deviceName: 'Samsung Galaxy S24',
       type: BluetoothDeviceType.mobile,
       isSaved: true,
       isConnected: false,
     ),
     const BluetoothDevice(
-      name: 'Connect2',
-      deviceName: "Test iPhone",
+      name: 'iPhone 15 Pro',
+      deviceName: "Alice's iPhone",
       type: BluetoothDeviceType.mobile,
       isSaved: false,
       isConnected: false,
     ),
     const BluetoothDevice(
-      name: 'JBL speaker cinema',
-      deviceName: 'JBL cinema',
+      name: 'Sony WH-1000XM5',
+      deviceName: 'Sony Wireless Headphones',
+      type: BluetoothDeviceType.other,
+      isSaved: true,
+      isConnected: false,
+    ),
+    const BluetoothDevice(
+      name: 'JBL Charge 5',
+      deviceName: 'JBL Portable Speaker',
       type: BluetoothDeviceType.speaker,
       isSaved: false,
       isConnected: false,
