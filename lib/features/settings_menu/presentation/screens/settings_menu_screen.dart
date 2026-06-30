@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:mechanix_settings/core/constants/icons.dart';
 import 'package:mechanix_settings/core/theme/app_theme.dart';
 import 'package:mechanix_settings/core/widgets/custom_divider.dart';
+import 'package:mechanix_settings/core/widgets/custom_image_asset.dart';
 import 'package:mechanix_settings/core/widgets/section_list/section_item.dart';
 import 'package:mechanix_settings/core/widgets/section_list/section_list.dart';
 import 'package:mechanix_settings/features/bluetooth/presentation/screens/bluetooth.dart';
@@ -50,10 +51,8 @@ class SettingsMenuScreenState extends State<SettingsMenuScreen> {
                   SectionItem(
                     title: AppLocalizations.of(context)!.wireless,
                     titleStyle: Theme.of(context).textTheme.bodyLarge,
-                    leading: Image.asset(
-                      height: 24,
-                      width: 24,
-                      SettingIcons.wireless,
+                    leading: const CustomImage(
+                      assetPath: SettingIcons.wireless,
                       color: AppColors.onSurfaceVariant,
                     ),
                     onTap: () {
@@ -68,10 +67,8 @@ class SettingsMenuScreenState extends State<SettingsMenuScreen> {
                   SectionItem(
                     title: AppLocalizations.of(context)!.cellularData,
                     titleStyle: Theme.of(context).textTheme.bodyLarge,
-                    leading: Image.asset(
-                      height: 24,
-                      width: 24,
-                      SettingIcons.cellularData,
+                    leading: const CustomImage(
+                      assetPath: SettingIcons.cellularData,
                       color: AppColors.onSurfaceVariant,
                     ),
                     onTap: () {},
@@ -80,10 +77,8 @@ class SettingsMenuScreenState extends State<SettingsMenuScreen> {
                   SectionItem(
                     title: AppLocalizations.of(context)!.bluetooth,
                     titleStyle: Theme.of(context).textTheme.bodyLarge,
-                    leading: Image.asset(
-                      height: 24,
-                      width: 24,
-                      SettingIcons.bluetooth,
+                    leading: const CustomImage(
+                      assetPath: SettingIcons.bluetooth,
                       color: AppColors.onSurfaceVariant,
                     ),
                     onTap: () {
@@ -104,10 +99,8 @@ class SettingsMenuScreenState extends State<SettingsMenuScreen> {
                   SectionItem(
                     title: AppLocalizations.of(context)!.display,
                     titleStyle: Theme.of(context).textTheme.bodyLarge,
-                    leading: Image.asset(
-                      height: 24,
-                      width: 24,
-                      SettingIcons.display,
+                    leading: const CustomImage(
+                      assetPath: SettingIcons.display,
                       color: AppColors.onSurfaceVariant,
                     ),
                     onTap: () {},
@@ -116,10 +109,8 @@ class SettingsMenuScreenState extends State<SettingsMenuScreen> {
                   SectionItem(
                     title: AppLocalizations.of(context)!.sound,
                     titleStyle: Theme.of(context).textTheme.bodyLarge,
-                    leading: Image.asset(
-                      height: 24,
-                      width: 24,
-                      SettingIcons.sound,
+                    leading: const CustomImage(
+                      assetPath: SettingIcons.sound,
                       color: AppColors.onSurfaceVariant,
                     ),
                     onTap: () {},
@@ -128,10 +119,8 @@ class SettingsMenuScreenState extends State<SettingsMenuScreen> {
                   SectionItem(
                     title: AppLocalizations.of(context)!.system,
                     titleStyle: Theme.of(context).textTheme.bodyLarge,
-                    leading: Image.asset(
-                      height: 24,
-                      width: 24,
-                      SettingIcons.system,
+                    leading: const CustomImage(
+                      assetPath: SettingIcons.system,
                       color: AppColors.onSurfaceVariant,
                     ),
                     onTap: () {},
@@ -145,10 +134,8 @@ class SettingsMenuScreenState extends State<SettingsMenuScreen> {
                   SectionItem(
                     title: AppLocalizations.of(context)!.timeAndDate,
                     titleStyle: Theme.of(context).textTheme.bodyLarge,
-                    leading: Image.asset(
-                      height: 24,
-                      width: 24,
-                      SettingIcons.timeAndDate,
+                    leading: const CustomImage(
+                      assetPath: SettingIcons.timeAndDate,
                       color: AppColors.onSurfaceVariant,
                     ),
                     onTap: () {},
@@ -157,10 +144,8 @@ class SettingsMenuScreenState extends State<SettingsMenuScreen> {
                   SectionItem(
                     title: AppLocalizations.of(context)!.language,
                     titleStyle: Theme.of(context).textTheme.bodyLarge,
-                    leading: Image.asset(
-                      height: 24,
-                      width: 24,
-                      SettingIcons.languages,
+                    leading: const CustomImage(
+                      assetPath: SettingIcons.languages,
                       color: AppColors.onSurfaceVariant,
                     ),
                     onTap: () {},
@@ -169,10 +154,8 @@ class SettingsMenuScreenState extends State<SettingsMenuScreen> {
                   SectionItem(
                     title: AppLocalizations.of(context)!.battery,
                     titleStyle: Theme.of(context).textTheme.bodyLarge,
-                    leading: Image.asset(
-                      height: 24,
-                      width: 24,
-                      SettingIcons.battery,
+                    leading: const CustomImage(
+                      assetPath: SettingIcons.battery,
                       color: AppColors.onSurfaceVariant,
                     ),
                     onTap: () {},
@@ -181,10 +164,8 @@ class SettingsMenuScreenState extends State<SettingsMenuScreen> {
                   SectionItem(
                     title: AppLocalizations.of(context)!.about,
                     titleStyle: Theme.of(context).textTheme.bodyLarge,
-                    leading: Image.asset(
-                      height: 24,
-                      width: 24,
-                      SettingIcons.about,
+                    leading: const CustomImage(
+                      assetPath: SettingIcons.about,
                       color: AppColors.onSurfaceVariant,
                     ),
                     onTap: () {},

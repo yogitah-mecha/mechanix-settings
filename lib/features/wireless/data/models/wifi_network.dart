@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:mechanix_settings/core/utils/enums.dart';
+import 'package:mechanix_settings/features/wireless/data/models/enums.dart';
 
 class WifiNetwork extends Equatable {
   final String name;

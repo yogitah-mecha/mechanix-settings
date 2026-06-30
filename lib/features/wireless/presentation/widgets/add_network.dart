@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mechanix_settings/core/constants/icons.dart';
 import 'package:mechanix_settings/core/theme/app_theme.dart';
-import 'package:mechanix_settings/core/utils/enums.dart';
+import 'package:mechanix_settings/features/wireless/data/models/enums.dart';
 import 'package:mechanix_settings/core/widgets/custom_divider.dart';
 import 'package:mechanix_settings/core/widgets/custom_icon_button.dart';
 import 'package:mechanix_settings/core/widgets/custom_image_asset.dart';
@@ -43,11 +43,8 @@ class _AddNetworkBottomSheetState extends State<AddNetworkBottomSheet> {
     }
 
     context.read<WirelessBloc>().add(
-          AddNetworkEvent(
-            name,
-            _security.requiresPassword ? password : '',
-          ),
-        );
+      AddNetworkEvent(name, _security.requiresPassword ? password : ''),
+    );
 
     Navigator.pop(context);
   }
@@ -89,7 +86,9 @@ class _AddNetworkBottomSheetState extends State<AddNetworkBottomSheet> {
           CustomTextField(
             controller: _nameController,
             hintText: l10n.hintName,
-            nextFocusNode: _security.requiresPassword ? _passwordFocusNode : null,
+            nextFocusNode: _security.requiresPassword
+                ? _passwordFocusNode
+                : null,
             textInputAction: _security.requiresPassword
                 ? TextInputAction.next
                 : TextInputAction.done,

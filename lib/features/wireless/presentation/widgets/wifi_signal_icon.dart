@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mechanix_settings/core/utils/enums.dart';
+import 'package:mechanix_settings/features/wireless/data/models/enums.dart';
 import 'package:mechanix_settings/core/widgets/custom_image_asset.dart';
 
 class WifiSignalIcon extends StatelessWidget {
