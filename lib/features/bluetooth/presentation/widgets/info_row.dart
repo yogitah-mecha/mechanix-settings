@@ -33,20 +33,3 @@ class InfoRow extends StatelessWidget {
     );
   }
 }
-
-// class InfoRow extends StatelessWidget {
-//   final String title;
-//   final String value;
-
-//   const InfoRow({super.key, required this.title, required this.value});
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return ListTile(
-//       minTileHeight: 56,
-//       contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
-//       title: Text(title, style: Theme.of(context).textTheme.labelLarge),
-//       trailing: Text(value, style: Theme.of(context).textTheme.bodyLarge),
-//     );
-//   }
-// }
